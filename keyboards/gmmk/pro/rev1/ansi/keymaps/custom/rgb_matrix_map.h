@@ -21,7 +21,7 @@
 #ifdef RGB_MATRIX_ENABLE
 
     // Custom RGB Colours
-    const RGB custom_orange = {255, 123 , 0};
+    const RGB custom_orange = {255, 102 , 0};
     const RGB custom_capslock = {255, 0, 0};
     const RGB custom_purple = {194, 31, 234};
 
@@ -137,6 +137,15 @@ const uint8_t LED_REGION_R_SIDE[] = {LED_R1, LED_R2, LED_R3, LED_R4, LED_R5, LED
         LED_CAPS, LED_A,    LED_S,    LED_D,    LED_F,    LED_G,    LED_H,    LED_J,    LED_K,    LED_L,    LED_SCLN, LED_QUOT,           LED_ENT,            LED_PGDN,
         LED_LSFT,           LED_Z,    LED_X,    LED_C,    LED_V,    LED_B,    LED_N,    LED_M,    LED_COMM, LED_DOT,  LED_SLSH,           LED_RSFT, LED_UP,   LED_END,
         LED_LCTL, LED_LWIN, LED_LALT,                            LED_SPC,                                   LED_RALT, LED_FN,   LED_RCTL, LED_LEFT, LED_DOWN, LED_RGHT
+    };
+
+    const uint8_t LED_LAYER_2[] = {
+                                                                                                                                                                       
+                                                                               LED_7,    LED_8,    LED_9,    LED_0,
+                                                                               LED_U,    LED_I,    LED_O,     
+                                                                               LED_J,    LED_K,    LED_L,     
+                                                                                         LED_M,    LED_COMM, LED_DOT,   
+                                                                                                           LED_RALT, LED_FN,
     };
 
     const uint8_t LED_REGION_A[] = {
