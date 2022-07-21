@@ -24,7 +24,8 @@
     const RGB custom_orange = {255, 102 , 0};
     const RGB custom_capslock = {255, 0, 0};
     const RGB custom_purple = {194, 31, 234};
-
+    
+    const RGB custom_macos = custom_purple;
     // RGB LED locations
     enum led_location_map {
         LED_ESC, // 0, ESC, k13
