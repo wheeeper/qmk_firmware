@@ -26,6 +26,8 @@
     const RGB custom_purple = {194, 31, 234};
     
     const RGB custom_macos = custom_purple;
+    const RGB numpad_inactive = {255, 0, 0};
+
     // RGB LED locations
     enum led_location_map {
         LED_ESC, // 0, ESC, k13
@@ -128,6 +130,13 @@
         LED_DOWN // 97, Down, k73
     };
 
+    typedef struct LedConf {
+        const uint8_t led;
+        const uint8_t r;
+        const uint8_t g;
+        const uint8_t b;
+    } CUSTOM_LED_CONF;
+
 const uint8_t LED_REGION_L_SIDE[] = {LED_L1, LED_L2, LED_L3, LED_L4, LED_L5, LED_L6, LED_L7,LED_L8};
 const uint8_t LED_REGION_R_SIDE[] = {LED_R1, LED_R2, LED_R3, LED_R4, LED_R5, LED_R6, LED_R7,LED_R8};
 
@@ -140,9 +149,20 @@ const uint8_t LED_REGION_R_SIDE[] = {LED_R1, LED_R2, LED_R3, LED_R4, LED_R5, LED
         LED_LCTL, LED_LWIN, LED_LALT,                            LED_SPC,                                   LED_RALT, LED_FN,   LED_RCTL, LED_LEFT, LED_DOWN, LED_RGHT
     };
 
-    const uint8_t LED_LAYER_2[] = {
+
+    const CUSTOM_LED_CONF LED_LAYER_NUMPAD_FNC[] = {
+            {LED_7, 255, 255, 0},  // Yellow
+            {LED_8, 0, 0, 255},    // Blue
+            {LED_9, 255, 0, 0},    // Red
+            {LED_0, 0, 255, 0}    // Green
+        };
+
+    const CUSTOM_LED_CONF NUM_LCK = {LED_MINS, 0, 255, 0};
+    const RGB NUM_OFF = {255, 35, 35};
+
+    const uint8_t LED_LAYER_NUMPAD_NUMS[] = {
                                                                                                                                                                        
-                                                                               LED_7,    LED_8,    LED_9,    LED_0,
+                                                                               
                                                                                LED_U,    LED_I,    LED_O,     
                                                                                LED_J,    LED_K,    LED_L,     
                                                                                          LED_M,    LED_COMM, LED_DOT,   

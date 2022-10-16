@@ -77,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [NUM_PAD] = LAYOUT(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PSCR,          _______,
-        _______, _______, _______, _______, _______, _______, _______, KC_PSLS, KC_PAST, KC_PMNS, KC_PPLS, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, KC_PSLS, KC_PAST, KC_PMNS, KC_PPLS,  KC_NUM, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, KC_KP_7, KC_KP_8, KC_KP_9, _______, _______, _______, _______,          _______,
         _______, _______, _______, _______, _______, _______, _______, KC_KP_4, KC_KP_5, KC_KP_6, _______, _______,          _______,          _______,
         _______,          _______, _______, _______, _______, _______, _______, KC_KP_1, KC_KP_2, KC_KP_3, _______,          _______, _______, _______,
@@ -135,9 +135,30 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
     switch(get_highest_layer(layer_state)){  // special handling per layer
         case NUM_PAD:
-            for (int i = 0; i < sizeof(LED_LAYER_2)/sizeof(LED_LAYER_2[0]); ++i){
-                RGB_MATRIX_INDICATOR_SET_COLOR(LED_LAYER_2[i], custom_orange.r, custom_orange.g, custom_orange.b);
+            if IS_HOST_LED_ON(USB_LED_NUM_LOCK){ 
+
+                for (int i = 0; i < sizeof(LED_LAYER_NUMPAD_NUMS)/sizeof(LED_LAYER_NUMPAD_NUMS[0]); ++i){
+                    RGB_MATRIX_INDICATOR_SET_COLOR(LED_LAYER_NUMPAD_NUMS[i], custom_orange.r, custom_orange.g, custom_orange.b);
+                }
+    
+                for (int i = 0; i < sizeof(LED_LAYER_NUMPAD_FNC)/sizeof(LED_LAYER_NUMPAD_FNC[0]); ++i){
+                    RGB_MATRIX_INDICATOR_SET_COLOR(LED_LAYER_NUMPAD_FNC[i].led, LED_LAYER_NUMPAD_FNC[i].r, 
+                    LED_LAYER_NUMPAD_FNC[i].g, LED_LAYER_NUMPAD_FNC[i].b);
+                }
+            } else {
+
+                RGB_MATRIX_INDICATOR_SET_COLOR(NUM_LCK.led, NUM_LCK.r, NUM_LCK.g, NUM_LCK.b);
+                
+                for (int i = 0; i < sizeof(LED_LAYER_NUMPAD_NUMS)/sizeof(LED_LAYER_NUMPAD_NUMS[0]); ++i){
+                    RGB_MATRIX_INDICATOR_SET_COLOR(LED_LAYER_NUMPAD_NUMS[i], NUM_OFF.r, NUM_OFF.g, NUM_OFF.b);
+                }
+    
+                for (int i = 0; i < sizeof(LED_LAYER_NUMPAD_FNC)/sizeof(LED_LAYER_NUMPAD_FNC[0]); ++i){
+                    RGB_MATRIX_INDICATOR_SET_COLOR(LED_LAYER_NUMPAD_FNC[i].led, NUM_OFF.r, NUM_OFF.g, NUM_OFF.b);
+                }
             }
+
+
         default:
             break;
     }
