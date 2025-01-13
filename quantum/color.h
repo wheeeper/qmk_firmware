@@ -107,7 +107,9 @@ typedef struct PACKED {
     uint8_t r;
     uint8_t g;
     uint8_t b;
+#endif
 } rgb_t;
+
 
 // DEPRECATED
 typedef rgb_t RGB;

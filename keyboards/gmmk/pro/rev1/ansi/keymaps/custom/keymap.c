@@ -68,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
     [FUNC] = LAYOUT(
-        _______, _______, _______, KC_VOLD, KC_VOLU, KC_CALC, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE, _______, _______, GUI_TOG, TG(1)	,          _______,
+        _______, _______, _______, KC_VOLD, KC_VOLU, KC_CALC, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE, _______, _______, GU_TOGG, TG(1)	,          _______,
         _______, RGB_TOG, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
         _______, _______, RGB_VAI, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, QK_BOOT,          _______,
         KC_CAPS, _______, RGB_VAD, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,          _______,
@@ -113,7 +113,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 //  87, Side 07                                                                                                                                                                               88, Side 18
 //  91, Side 08                                                                                                                                                                               92, Side 19
 
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
 
     for (int i = 0; i < (sizeof(LED_MATRIX)/sizeof(LED_MATRIX[0])); ++i){
@@ -135,7 +135,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
     switch(get_highest_layer(layer_state)){  // special handling per layer
         case NUM_PAD:
-            if IS_HOST_LED_ON(USB_LED_NUM_LOCK){ 
+            if (host_keyboard_led_state().num_lock){ 
 
                 for (int i = 0; i < sizeof(LED_LAYER_NUMPAD_NUMS)/sizeof(LED_LAYER_NUMPAD_NUMS[0]); ++i){
                     RGB_MATRIX_INDICATOR_SET_COLOR(LED_LAYER_NUMPAD_NUMS[i], custom_orange.r, custom_orange.g, custom_orange.b);
@@ -163,10 +163,11 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             break;
     }
 
-    if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
+    if (host_keyboard_led_state().caps_lock) {
         for(int i = 0; i < (sizeof(LED_REGION_L_SIDE)/sizeof(LED_REGION_L_SIDE[0])); ++i){
             RGB_MATRIX_INDICATOR_SET_COLOR(LED_REGION_L_SIDE[i], custom_capslock.r, custom_capslock.g, custom_capslock.b);
             RGB_MATRIX_INDICATOR_SET_COLOR(LED_REGION_R_SIDE[i], custom_capslock.r, custom_capslock.g, custom_capslock.b);
         }
     }
+    return true;
 }
