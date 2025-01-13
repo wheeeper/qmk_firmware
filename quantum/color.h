@@ -74,7 +74,36 @@
 
 // clang-format on
 
-typedef struct PACKED rgb_t {
+#if defined(__GNUC__)
+#    define PACKED __attribute__((__packed__))
+#else
+#    define PACKED
+#endif
+
+#if defined(_MSC_VER)
+#    pragma pack(push, 1)
+#endif
+
+#ifdef RGBW
+#    define LED_TYPE cRGBW
+#else
+#    define LED_TYPE RGB
+#endif
+
+#define WS2812_BYTE_ORDER_RGB 0
+#define WS2812_BYTE_ORDER_GRB 1
+#define WS2812_BYTE_ORDER_BGR 2
+
+#ifndef WS2812_BYTE_ORDER
+#    define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_RGB
+#endif
+
+typedef struct PACKED {
+#if (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_GRB)
+    uint8_t g;
+    uint8_t r;
+    uint8_t b;
+#elif (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_RGB)
     uint8_t r;
     uint8_t g;
     uint8_t b;
